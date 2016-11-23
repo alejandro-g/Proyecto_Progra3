@@ -1,0 +1,125 @@
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+using std::string;
+
+int** crearMatriz(int, int);
+void freeMatriz(int**, int);
+void imprimirMatriz(int**, int, int);
+void imprimirMenu();
+
+int main(){
+//int filas;
+//int columnas;
+//int** matriz;
+
+  imprimirMenu();
+
+}
+
+//metodo encargado de crear la matriz en memoria dinamica
+int** crearMatriz(int filas, int columnas){
+  int** matriz = new int*[filas];
+
+  for(int i = 0; i < filas; ++i){
+    matriz[i] = new int [columnas];
+  }
+  return matriz;
+}
+
+//metodo que sirve para librar memoria
+void freeMatriz(int**matriz, int filas){
+  for(int i = 0; i < filas; ++i){
+    delete[] matriz[i];
+    matriz[i] = NULL;
+  }
+  delete[]matriz;
+}
+
+//metodo que imprime la matriz
+void imprimirMatriz(int** matriz, int filas, int columnas){
+  for (int i = 0; i < filas; ++i) {
+    for(int j = 0; j < columnas; ++j) {
+      cout << "[" << matriz[i][j] << "]";
+    }
+    cout << endl;
+  }
+}
+
+bool validarNumeros(int numero){
+  if(numero <= 3){
+    return numero > 1;
+  } else if (numero % 2 == 0 || numero % 3 == 0){
+    return false;
+  } else {
+    for (int i = 5; i * i <= numero; i += 6) {
+      if(numero % i == 0 || numero % (i + 2) == 0){
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+//metodo que imprime menu para el ususario
+void imprimirMenu(){
+  string Jugador1, Jugador2;
+  int contador = 1;
+  int opcion;
+  int choice;
+  int filas, columnas;
+  int** matriz=NULL;
+  cout << "Bienvenido al juego de la matriz prima!" << endl;
+  cout << "Jugador 1, Desea ingresar un nombre? (1=Si | 0=No): ";
+  cin >> opcion;
+  if(opcion == 0){
+    cout << "Bienvenido Jugador 1!" << endl;
+  }else{
+    cout << "Jugador 1- Porfavor ingrese su nombre: ";
+    cin >> Jugador1;
+    cout << "Bienvenido " << Jugador1 << "!" << endl;
+  }
+  cout << "Jugador 2, Desea ingresar un nombre> (1=Si | 0=No): ";
+  cin >> opcion;
+  if(opcion == 0){
+    cout << "Bienvenido Jugador 2!" << endl;
+  }else{
+    cout << "Jugador 2- Porfavor ingrese su nombre: ";
+    cin >> Jugador2;
+    cout << "Bienvenido " << Jugador2 << "!" << endl;
+  }
+
+  do{
+    cout << "******JUEGO DE LA MATRIZ PRIMA******" << endl;
+    cout << "1.Jugar" << endl << "2.Mostrar el marcador" << endl << "3.Salir" << endl;
+    cout << "Ingrese su opcion: ";
+    cin >> choice;
+    if(choice == 1){
+      cout << "Ingrese cantidad de filas de la matriz: ";
+      cin >> filas;
+      cout << "Ingrese cantidad de columnas de la matriz: ";
+      cin >> columnas;
+      if(filas != columnas){
+        cout << "La matriz debe contener la misma cantidad de filas y columnas" << endl;
+      }
+      matriz = crearMatriz(filas,columnas);
+      imprimirMatriz(matriz, filas, columnas);
+    }
+    if(choice == 2){
+      cout << "Entro 2";
+    }
+
+    if (choice == 3){
+      cout << "Seguro que desea salir del juego? (1=Si | 0=No): ";
+      cin >> opcion;
+      if(opcion == 0){
+        imprimirMenu();
+      }else{
+        cout << "Tenga un buen dia!" << endl;
+      }
+    }
+  }while (choice !=0 && choice < 3);
+
+}
