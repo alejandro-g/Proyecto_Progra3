@@ -61,6 +61,7 @@ bool validarNumeros(int numero){
   }
 }
 
+//metodo para colocar las coordenadas ingresadas por el usuario en la matriz
 int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int corY){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
@@ -72,7 +73,13 @@ int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int cor
   return matriz;
 }
 
-
+int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY){
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      
+    }
+  }
+}
 
 //metodo que imprime menu para el ususario
 void imprimirMenu(){
