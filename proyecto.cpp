@@ -76,10 +76,19 @@ int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int cor
 int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
-      
+
     }
   }
 }
+
+void colorValorInicial(int**matriz, int filas,int columnas){
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      matriz[i][j] = -1;
+    }
+  }
+}
+
 
 //metodo que imprime menu para el ususario
 void imprimirMenu(){
@@ -123,6 +132,7 @@ void imprimirMenu(){
       cout << "Ingrese cantidad de columnas de la matriz: ";
       cin >> columnas;
       matriz = crearMatriz(filas,columnas);
+      colorValorInicial(matriz, filas, columnas);
       imprimirMatriz(matriz, filas, columnas);
       if(contador % 2 != 0){
         cout << "Jugador 1- Por favor ingrese la coordenada X: ";
