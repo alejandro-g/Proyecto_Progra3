@@ -9,11 +9,9 @@ int** crearMatriz(int, int);
 void freeMatriz(int**, int);
 void imprimirMatriz(int**, int, int);
 void imprimirMenu();
+int** colocarCoordenada(int**, int, int, int, int);
 
 int main(){
-//int filas;
-//int columnas;
-//int** matriz;
 
   imprimirMenu();
 
@@ -63,9 +61,18 @@ bool validarNumeros(int numero){
   }
 }
 
-int** colocarCoordenada(int**matriz, int filas, int columnas){
-
+int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int corY){
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      if(i == corX && j == corY){
+        matriz[i][j] = 1;
+      }
+    }
+  }
+  return matriz;
 }
+
+
 
 //metodo que imprime menu para el ususario
 void imprimirMenu(){
@@ -118,9 +125,10 @@ void imprimirMenu(){
         cout << "Jugador 1- Por favor ingrese un numero (0-9): ";
         cin >> numIngresado;
         if(numIngresado > 9 || numIngresado < 0){
-          cout << "El numero debe estar entre los rangos o debe ser positivo";
+          cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
         }else{
-
+          colocarCoordenada(matriz, filas, columnas, corX, corY);
+          imprimirMatriz(matriz, filas, columnas);
         }
       }
     }
