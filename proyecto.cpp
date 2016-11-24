@@ -9,7 +9,7 @@ int** crearMatriz(int, int);
 void freeMatriz(int**, int);
 void imprimirMatriz(int**, int, int);
 void imprimirMenu();
-int** colocarCoordenada(int**, int, int, int, int);
+int** colocarCoordenada(int**, int, int, int, int, int);
 
 int main(){
 
@@ -62,25 +62,35 @@ bool validarNumeros(int numero){
 }
 
 //metodo para colocar las coordenadas ingresadas por el usuario en la matriz
-int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int corY){
+int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int corY, int numIngresado){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
       if(i == corX && j == corY){
-        matriz[i][j] = 1;
+        matriz[i][j] = numIngresado;
       }
     }
   }
   return matriz;
 }
 
-int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY){
+//revisar si la coordenada ingresada no ha sido tomada
+int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, int numIngresado){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
-
+      if(i == corX && j == corY){
+        matriz[i][j] = 1;
+      }else{
+        if(matriz[i][j] != -1){
+          cout << "Lo sentimos pero este espacio ya ha sido tomado" << endl;
+          cout << "Por favor ingrese otro numero: ";
+          cin >> numIngresado;
+        }
+      }
     }
   }
 }
 
+//inicializar la matriz con -1
 void colorValorInicial(int**matriz, int filas,int columnas){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
@@ -92,6 +102,7 @@ void colorValorInicial(int**matriz, int filas,int columnas){
 
 //metodo que imprime menu para el ususario
 void imprimirMenu(){
+  bool win = false;
   string Jugador1, Jugador2;
   int contador = 1;
   int opcion;
@@ -144,7 +155,7 @@ void imprimirMenu(){
         if(numIngresado > 9 || numIngresado < 0){
           cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
         }else{
-          colocarCoordenada(matriz, filas, columnas, corX, corY);
+          colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
           imprimirMatriz(matriz, filas, columnas);
         }
       }
