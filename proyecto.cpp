@@ -63,6 +63,10 @@ bool validarNumeros(int numero){
   }
 }
 
+int** colocarCoordenada(int**matriz, int filas, int columnas){
+
+}
+
 //metodo que imprime menu para el ususario
 void imprimirMenu(){
   string Jugador1, Jugador2;
@@ -70,7 +74,9 @@ void imprimirMenu(){
   int opcion;
   int choice;
   int filas, columnas;
-  int** matriz=NULL;
+  int** matriz;
+  int corX, corY;
+  int numIngresado;
   cout << "Bienvenido al juego de la matriz prima!" << endl;
   cout << "Jugador 1, Desea ingresar un nombre? (1=Si | 0=No): ";
   cin >> opcion;
@@ -93,6 +99,7 @@ void imprimirMenu(){
 
   do{
     cout << "******JUEGO DE LA MATRIZ PRIMA******" << endl;
+    cout << endl;
     cout << "1.Jugar" << endl << "2.Mostrar el marcador" << endl << "3.Salir" << endl;
     cout << "Ingrese su opcion: ";
     cin >> choice;
@@ -101,11 +108,21 @@ void imprimirMenu(){
       cin >> filas;
       cout << "Ingrese cantidad de columnas de la matriz: ";
       cin >> columnas;
-      if(filas != columnas){
-        cout << "La matriz debe contener la misma cantidad de filas y columnas" << endl;
-      }
       matriz = crearMatriz(filas,columnas);
       imprimirMatriz(matriz, filas, columnas);
+      if(contador % 2 != 0){
+        cout << "Jugador 1- Por favor ingrese la coordenada X: ";
+        cin >> corX;
+        cout << "Jugador 1- Por favor ingrese la coordenada Y: ";
+        cin >> corY;
+        cout << "Jugador 1- Por favor ingrese un numero (0-9): ";
+        cin >> numIngresado;
+        if(numIngresado > 9 || numIngresado < 0){
+          cout << "El numero debe estar entre los rangos o debe ser positivo";
+        }else{
+
+        }
+      }
     }
     if(choice == 2){
       cout << "Entro 2";
@@ -118,6 +135,7 @@ void imprimirMenu(){
         imprimirMenu();
       }else{
         cout << "Tenga un buen dia!" << endl;
+        freeMatriz(matriz, filas);
       }
     }
   }while (choice !=0 && choice < 3);
