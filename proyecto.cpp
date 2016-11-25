@@ -78,7 +78,7 @@ int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, in
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
       if(i == corX && j == corY){
-        matriz[i][j] = 1;
+        matriz[i][j] = numIngresado;
       }else{
         if(matriz[i][j] != -1){
           cout << "Lo sentimos pero este espacio ya ha sido tomado" << endl;
@@ -145,20 +145,38 @@ void imprimirMenu(){
       matriz = crearMatriz(filas,columnas);
       colorValorInicial(matriz, filas, columnas);
       imprimirMatriz(matriz, filas, columnas);
-      if(contador % 2 != 0){
-        cout << "Jugador 1- Por favor ingrese la coordenada X: ";
-        cin >> corX;
-        cout << "Jugador 1- Por favor ingrese la coordenada Y: ";
-        cin >> corY;
-        cout << "Jugador 1- Por favor ingrese un numero (0-9): ";
-        cin >> numIngresado;
-        if(numIngresado > 9 || numIngresado < 0){
-          cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
+      while(!win){
+        if(contador % 2 != 0){
+          cout << "Jugador 1- Por favor ingrese la coordenada X: ";
+          cin >> corX;
+          cout << "Jugador 1- Por favor ingrese la coordenada Y: ";
+          cin >> corY;
+          cout << "Jugador 1- Por favor ingrese un numero (0-9): ";
+          cin >> numIngresado;
+          if(numIngresado > 9 || numIngresado < 0){
+            cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
+          }else{
+            colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
+            //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
+            imprimirMatriz(matriz, filas, columnas);
+          }
         }else{
-          colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
-          imprimirMatriz(matriz, filas, columnas);
+          cout << "Jugador 2- Por favor ingrese la coordenada X: ";
+          cin >> corX;
+          cout << "Jugador 2- Por favor ingrese la coordenada Y: ";
+          cin >> corY;
+          cout << "Jugador 2- Por favor ingrese un numero (0-9): ";
+          cin >> numIngresado;
+          if(numIngresado > 9 || numIngresado < 0){
+            cout << "En numero debe estar entre los rangos o debe ser positivo" << endl;
+          }else{
+            colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
+            //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
+            imprimirMatriz(matriz, filas, columnas);
+          }
         }
-      }
+        contador++;
+      }//fin while
     }
     if(choice == 2){
       cout << "Entro 2";
