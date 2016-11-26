@@ -73,7 +73,7 @@ int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int cor
   return matriz;
 }
 
-
+//revisa si una coordenada ingresada por el usuario ya ha sido tomada 
 int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, int numIngresado){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
