@@ -73,17 +73,20 @@ int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int cor
   return matriz;
 }
 
-//revisar si la coordenada ingresada no ha sido tomada
+
 int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, int numIngresado){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
       if(i == corX && j == corY){
-        matriz[i][j] = numIngresado;
-      }else{
-        if(matriz[i][j] != -1){
+        if(matriz[i][j] == -1){
+          matriz[i][j] = numIngresado;
+        }else{
           cout << "Lo sentimos pero este espacio ya ha sido tomado" << endl;
-          cout << "Por favor ingrese otro numero: ";
-          cin >> numIngresado;
+          cout << "Por favor ingrese otra coordenada X: ";
+          cin >> corX;
+          cout << "Por favor ingrese otra coordenada Y: ";
+          cin >> corY;
+          matriz[i][j] = numIngresado;
         }
       }
     }
@@ -132,6 +135,7 @@ void imprimirMenu(){
   }
 
   do{
+    cout << endl;
     cout << "******JUEGO DE LA MATRIZ PRIMA******" << endl;
     cout << endl;
     cout << "1.Jugar" << endl << "2.Mostrar el marcador" << endl << "3.Salir" << endl;
@@ -156,6 +160,7 @@ void imprimirMenu(){
           if(numIngresado > 9 || numIngresado < 0){
             cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
+            checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
             //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
@@ -170,6 +175,7 @@ void imprimirMenu(){
           if(numIngresado > 9 || numIngresado < 0){
             cout << "En numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
+            checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
             //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
