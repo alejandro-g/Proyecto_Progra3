@@ -73,6 +73,36 @@ int** colocarCoordenada(int** matriz, int filas, int columnas, int corX, int cor
   return matriz;
 }
 
+//metodo que revisa si la columna donde se coloca la coordenada ya esta llena
+bool isColumnFull(int** matriz, int filas, int columnas, int fila, int columna){
+  int emptyColumnCells = 0;
+  for (int i = 0; i < filas; i++) {
+    if (matriz[i][columna] != -1) {
+      emptyColumnCells++;
+    }
+  }
+  if (emptyColumnCells != columnas) {
+    return false;
+  }else {
+    return true;
+  }
+}
+
+//metodo que revisa si la columna donde se coloca la coordenada ya esta llena
+bool isFilaFull(int** matriz, int filas, int columnas, int fila, int columna){
+  int emptyRowCells = 0;
+  for (int i = 0; i < columnas; i++) {
+    if (matriz[fila][i] != -1) {
+      emptyRowCells++;
+    }
+  }
+  if (emptyRowCells != filas) {
+    return false;
+  }else {
+    return true;
+  }
+}
+
 //revisa si una coordenada ingresada por el usuario ya ha sido tomada
 int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, int numIngresado){
   for (int i = 0; i < filas; i++) {
@@ -93,15 +123,20 @@ int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, in
   }
 }
 
+
 int** checkRow(int** matriz, int filas, int columnas){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
-      if(matriz[i][j] == -1){
-        cout << "La fila esta llena" << endl;
+      if(matriz[i][j] != -1){
+        cout << "Difrente" << endl;
+      }else{
+        cout << "Espacio" << endl;
       }
     }
   }
 }
+
+
 
 //inicializar la matriz con -1
 void colorValorInicial(int**matriz, int filas,int columnas){
@@ -171,9 +206,8 @@ void imprimirMenu(){
             cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
             checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
-            checkRow(matriz, filas,columnas);
+            //checkRow(matriz, filas,columnas);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
-            //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
           }
         }else{
@@ -187,12 +221,22 @@ void imprimirMenu(){
             cout << "En numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
             checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
-            checkRow(matriz,filas,columnas);
+            //checkRow(matriz,filas,columnas);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
-            //checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
           }
         }
+        if(isColumnFull(matriz, filas, columnas, corX, corY)){
+          cout << "*******************************" << endl;
+          cout << "Columna llena!" << endl;
+          cout << "*******************************" << endl;
+          //promedioColumna, si retorna un primo, hacer  el break
+        }else  if(isFilaFull(matriz, filas, columnas, corX, corY)){
+            cout << "*******************************" << endl;
+            cout << "fila llena!" << endl;
+            cout << "*******************************" << endl;
+            //promedioFila, si retorna primo, hacer break
+          }
         contador++;
       }//fin while
     }
