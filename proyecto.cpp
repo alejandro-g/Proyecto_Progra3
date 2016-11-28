@@ -1,6 +1,7 @@
 
 #include <iostream>
-#include <string>
+#include <cstring>
+#include <stdio.h>
 
 using namespace std;
 using std::string;
@@ -123,23 +124,8 @@ int** checkIfEmpty(int** matriz, int filas, int columnas, int corX, int corY, in
   }
 }
 
-
-int** checkRow(int** matriz, int filas, int columnas){
-  for (int i = 0; i < filas; i++) {
-    for (int j = 0; j < columnas; j++) {
-      if(matriz[i][j] != -1){
-        cout << "Difrente" << endl;
-      }else{
-        cout << "Espacio" << endl;
-      }
-    }
-  }
-}
-
-
-
 //inicializar la matriz con -1
-void colorValorInicial(int**matriz, int filas,int columnas){
+void colocarValorInicial(int**matriz, int filas,int columnas){
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
       matriz[i][j] = -1;
@@ -147,8 +133,30 @@ void colorValorInicial(int**matriz, int filas,int columnas){
   }
 }
 
+//calcula el numero de la fila rellenada y retorna si es primo o no
+bool isRowPrime(int** matriz, int filas, int columnas, int fila){
+  string nume = "";
+  for (int i = 0; i < columnas; i++) {
+    string num = to_string(matriz[fila][i]);
+    const char *num2 = num.c_str();
+    nume = nume + num2;
+  }
+  int numeroEntero = stoi(nume);
+  return validarNumeros(numeroEntero);
+}
 
-//metodo que imprime menu para el ususario
+bool isColumnPrime(int** matriz, int filas, int columnas, int columna){
+  string nume = "";
+  for (int i = 0; i < filas; i++) {
+    string num = to_string(matriz[i][columna]);
+    const char *num2 = num.c_str();
+    nume = nume + num2;
+  }
+  int numeroEntero = stoi(nume);
+  return validarNumeros(numeroEntero);
+}
+
+//metodo que imprime menu para el usuario
 void imprimirMenu(){
   bool win = false;
   string Jugador1, Jugador2;
@@ -192,7 +200,7 @@ void imprimirMenu(){
       cout << "Ingrese cantidad de columnas de la matriz: ";
       cin >> columnas;
       matriz = crearMatriz(filas,columnas);
-      colorValorInicial(matriz, filas, columnas);
+      colocarValorInicial(matriz, filas, columnas);
       imprimirMatriz(matriz, filas, columnas);
       while(!win){
         if(contador % 2 != 0){
@@ -206,7 +214,6 @@ void imprimirMenu(){
             cout << "El numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
             checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
-            //checkRow(matriz, filas,columnas);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
           }
@@ -221,7 +228,6 @@ void imprimirMenu(){
             cout << "En numero debe estar entre los rangos o debe ser positivo" << endl;
           }else{
             checkIfEmpty(matriz, filas, columnas, corX, corY, numIngresado);
-            //checkRow(matriz,filas,columnas);
             colocarCoordenada(matriz, filas, columnas, corX, corY, numIngresado);
             imprimirMatriz(matriz, filas, columnas);
           }
@@ -231,17 +237,25 @@ void imprimirMenu(){
           cout << "Columna llena!" << endl;
           cout << "*******************************" << endl;
           //promedioColumna, si retorna un primo, hacer  el break
+          if(isColumnPrime(matriz, filas, columnas, corY)){
+            cout << "La columna " << corX << " forma un numero primo, hay un ganador!" << endl;
+            break;
+          }
         }else  if(isFilaFull(matriz, filas, columnas, corX, corY)){
             cout << "*******************************" << endl;
-            cout << "fila llena!" << endl;
+            cout << "Fila llena!" << endl;
             cout << "*******************************" << endl;
             //promedioFila, si retorna primo, hacer break
+            if(isRowPrime(matriz, filas, columnas, corX)){
+              cout << "La fila " << corX << " forma un numero primo, hay un ganador!" << endl;
+              break;
+            }
           }
         contador++;
       }//fin while
     }
     if(choice == 2){
-      cout << "Entro 2";
+      cout << "Resultados de la Partida!";
     }
 
     if (choice == 3){
